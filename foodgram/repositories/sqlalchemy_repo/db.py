@@ -17,7 +17,7 @@ class Database:
         self.engine = create_async_engine(DATABASE_URL, future=True, echo=True)
 
     @asynccontextmanager
-    async def async_session(self) -> AsyncGenerator[AsyncSession]:
+    async def async_session(self) -> AsyncGenerator[AsyncSession, None]:
         session_maker = sessionmaker(
             self.engine,
             expire_on_commit=False,
