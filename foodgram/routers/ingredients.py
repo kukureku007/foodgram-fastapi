@@ -11,6 +11,8 @@ ingredient_router = APIRouter(
     prefix='/api/ingredients',
 )
 
+ingredient_repository = IngredientRepository()
+
 
 @ingredient_router.get(
     '/{pk}/',
@@ -19,7 +21,6 @@ ingredient_router = APIRouter(
 async def read_ingredient(
     pk: int = Field(..., title="Ingredient id(pk)", gt=0),
 ):
-    ingredient_repository = IngredientRepository()
     return await ingredient_repository.read(pk)
 
 
@@ -34,7 +35,6 @@ async def read_all_ingredient(
         description='search by name field'
     )
 ):
-    ingredient_repository = IngredientRepository()
     return await ingredient_repository.read_all(
         FilterIngredients(name=name)
     )

@@ -13,3 +13,6 @@ class BaseRepository:
 
     async def delete(self):
         raise NotImplementedError
+
+    def __make_filters__(self):
+        raise NotImplementedError

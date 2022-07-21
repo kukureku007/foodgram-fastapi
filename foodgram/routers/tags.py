@@ -11,13 +11,14 @@ tags_router = APIRouter(
     prefix='/api/tags',
 )
 
+tag_repository = TagRepository()
+
 
 @tags_router.get(
     '/',
     response_model=List[Tag]
 )
 async def get_all_tags():
-    tag_repository = TagRepository()
     return await tag_repository.read_all()
 
 
@@ -28,7 +29,6 @@ async def get_all_tags():
 async def get_tag(
     pk: int = Field(..., title="Tag id(pk)", gt=0)
 ):
-    tag_repository = TagRepository()
     return await tag_repository.read(pk)
 
 
@@ -39,5 +39,4 @@ async def get_tag(
 async def create_tag(
     cmd: CreateTag
 ):
-    tag_repository = TagRepository()
     return await tag_repository.create(cmd)

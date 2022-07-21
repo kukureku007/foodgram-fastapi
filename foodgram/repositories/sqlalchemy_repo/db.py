@@ -9,11 +9,12 @@ from sqlalchemy.orm import sessionmaker
 from settings import DATABASE_URL
 
 
+# TODO add logging
 class Database:
     engine: AsyncEngine
 
     def __init__(self):
-        print('init engine')
+        print('INININININI engine')
         self.engine = create_async_engine(DATABASE_URL, future=True, echo=True)
 
     @asynccontextmanager
@@ -26,3 +27,7 @@ class Database:
         # closing session on aexit()
         async with session_maker() as session:
             yield session
+
+    def __del__(self):
+        print('DELELELEEL engine')
+    # def __del__
