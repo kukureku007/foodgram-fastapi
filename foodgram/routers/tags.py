@@ -2,7 +2,7 @@ from fastapi import APIRouter
 # from fastapi import Depends
 
 from typing import List
-from models import Tag, CreateTag
+from models.tags import Tag, CreateTag
 from repositories.sqlalchemy_repo import TagRepository
 from pydantic import Field
 # __all__ = ['tags_router']

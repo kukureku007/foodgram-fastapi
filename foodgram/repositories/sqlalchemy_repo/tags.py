@@ -3,7 +3,7 @@ from typing import List
 from sqlalchemy.future import select
 
 from repositories import BaseRepository
-from models import Tag, CreateTag
+from models.tags import Tag, CreateTag
 from repositories.sqlalchemy_repo.schemas import TagTable
 from repositories.sqlalchemy_repo.db import Database
 from repositories.sqlalchemy_repo.handle_response import handle_response

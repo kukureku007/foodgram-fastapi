@@ -14,7 +14,7 @@ class Database:
     engine: AsyncEngine
 
     def __init__(self):
-        print('INININININI engine')
+        print('INIT engine')
         self.engine = create_async_engine(DATABASE_URL, future=True, echo=True)
 
     @asynccontextmanager
@@ -29,5 +29,5 @@ class Database:
             yield session
 
     def __del__(self):
-        print('DELELELEEL engine')
+        print('DELETE engine')
     # def __del__

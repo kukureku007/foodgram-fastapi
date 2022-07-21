@@ -2,7 +2,7 @@ from fastapi import APIRouter, Query
 # from fastapi import Depends
 
 from typing import List
-from models import Ingredient, FilterIngredients
+from models.ingredients import Ingredient, FilterIngredients
 from repositories.sqlalchemy_repo import IngredientRepository
 from pydantic import Field
 

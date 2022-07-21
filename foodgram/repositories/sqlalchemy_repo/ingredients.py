@@ -4,7 +4,7 @@ from sqlalchemy import and_
 from sqlalchemy.future import select
 
 from repositories import BaseRepository
-from models import Ingredient, CreateIngredient, FilterIngredients
+from models.ingredients import Ingredient, CreateIngredient, FilterIngredients
 from repositories.sqlalchemy_repo.schemas import IngredientTable
 from repositories.sqlalchemy_repo.db import Database
 from repositories.sqlalchemy_repo.handle_response import handle_response
