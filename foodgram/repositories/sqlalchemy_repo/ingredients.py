@@ -25,9 +25,6 @@ class IngredientRepository(BaseRepository):
             await session.commit()
             return ingredient
 
-    async def create_all(self) -> None:
-        raise NotImplementedError
-
     @handle_response(output_model=Ingredient)
     async def read(self, pk: int) -> Ingredient:
         async with database.async_session() as session:

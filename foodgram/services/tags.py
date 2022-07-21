@@ -1,33 +1,19 @@
-# from models import 
+from typing import List
+from models.tags import Tag, CreateTag
+
+# from repositories import BaseRepository
+from repositories.sqlalchemy_repo.tags import TagRepository
+
+tag_repository = TagRepository()
 
 
+class TagService:
 
-class TagRepository(BaseRepository):
-
-    @handle_response(output_model=Tag)
     async def create(self, cmd: CreateTag) -> Tag:
-        async with database.async_session() as session:
-            tag = TagTable(
-                name=cmd.name,
-                color=cmd.color,
-                slug=cmd.slug
-            )
-            session.add(tag)
-            await session.commit()
-            return tag
+        return await tag_repository.create(cmd)
 
-    @handle_response(output_model=Tag)
     async def read(self, pk: int) -> Tag:
-        async with database.async_session() as session:
-            tag = await session.execute(
-                select(TagTable).filter(TagTable.pk == pk)
-            )
-            return tag.scalar()
+        return await tag_repository.read(pk)
 
-    @handle_response(output_model=Tag)
     async def read_all(self) -> List[Tag]:
-        async with database.async_session() as session:
-            tags = await session.execute(
-                select(TagTable)
-            )
-            return tags.scalars().all()
+        return await tag_repository.read_all()

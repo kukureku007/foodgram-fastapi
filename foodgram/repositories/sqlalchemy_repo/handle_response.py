@@ -16,7 +16,6 @@ def handle_response(output_model: BaseAPIModel):
             if isinstance(result, list):
                 return [output_model.from_orm(x) for x in result]
 
-            # TODO return some json empty result
             if not result:
                 return None
             return output_model.from_orm(result)

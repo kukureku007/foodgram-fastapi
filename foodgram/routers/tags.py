@@ -1,17 +1,19 @@
+from typing import List
+
+from pydantic import Field
 from fastapi import APIRouter
 # from fastapi import Depends
 
-from typing import List
 from models.tags import Tag, CreateTag
-from repositories.sqlalchemy_repo import TagRepository
-from pydantic import Field
+from services import TagService
+
 # __all__ = ['tags_router']
 
 tags_router = APIRouter(
     prefix='/api/tags',
 )
 
-tag_repository = TagRepository()
+tag_service = TagService()
 
 
 @tags_router.get(
@@ -19,7 +21,7 @@ tag_repository = TagRepository()
     response_model=List[Tag]
 )
 async def get_all_tags():
-    return await tag_repository.read_all()
+    return await tag_service.read_all()
 
 
 @tags_router.get(
@@ -29,7 +31,7 @@ async def get_all_tags():
 async def get_tag(
     pk: int = Field(..., title="Tag id(pk)", gt=0)
 ):
-    return await tag_repository.read(pk)
+    return await tag_service.read(pk)
 
 
 @tags_router.post(
@@ -39,4 +41,4 @@ async def get_tag(
 async def create_tag(
     cmd: CreateTag
 ):
-    return await tag_repository.create(cmd)
+    return await tag_service.create(cmd)

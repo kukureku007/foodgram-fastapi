@@ -1,17 +1,18 @@
+from typing import List
+
 from fastapi import APIRouter, Query
+from pydantic import Field
 # from fastapi import Depends
 
-from typing import List
 from models.ingredients import Ingredient, FilterIngredients
-from repositories.sqlalchemy_repo import IngredientRepository
-from pydantic import Field
+from services import IngredientService
+
+ingredient_service = IngredientService()
 
 
 ingredient_router = APIRouter(
     prefix='/api/ingredients',
 )
-
-ingredient_repository = IngredientRepository()
 
 
 @ingredient_router.get(
@@ -21,7 +22,7 @@ ingredient_repository = IngredientRepository()
 async def read_ingredient(
     pk: int = Field(..., title="Ingredient id(pk)", gt=0),
 ):
-    return await ingredient_repository.read(pk)
+    return await ingredient_service.read(pk)
 
 
 @ingredient_router.get(
@@ -35,6 +36,6 @@ async def read_all_ingredient(
         description='search by name field'
     )
 ):
-    return await ingredient_repository.read_all(
+    return await ingredient_service.read_all(
         FilterIngredients(name=name)
     )
