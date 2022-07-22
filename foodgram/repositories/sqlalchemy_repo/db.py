@@ -15,7 +15,8 @@ class Database:
 
     def __init__(self):
         print('INIT engine')
-        self.engine = create_async_engine(DATABASE_URL, future=True, echo=True)
+        # self.engine = create_async_engine(DATABASE_URL, future=True, echo=True)
+        self.engine = create_async_engine(DATABASE_URL, future=True)
 
     @asynccontextmanager
     async def async_session(self) -> AsyncGenerator[AsyncSession, None]:

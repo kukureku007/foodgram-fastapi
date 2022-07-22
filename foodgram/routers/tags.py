@@ -1,11 +1,12 @@
 from typing import List
 
 from pydantic import Field
-from fastapi import APIRouter
-# from fastapi import Depends
+from fastapi import APIRouter, Depends
+from dependency_injector.wiring import inject, Provide
 
+from dependency_container import AppContainer
 from models.tags import Tag, CreateTag
-from services import TagService
+from services.tags import TagService
 
 # __all__ = ['tags_router']
 
@@ -13,14 +14,15 @@ tags_router = APIRouter(
     prefix='/api/tags',
 )
 
-tag_service = TagService()
-
 
 @tags_router.get(
     '/',
     response_model=List[Tag]
 )
-async def get_all_tags():
+@inject
+async def get_all_tags(
+    tag_service: TagService = Depends(Provide[AppContainer.tag_service])
+):
     return await tag_service.read_all()
 
 
@@ -28,17 +30,21 @@ async def get_all_tags():
     '/{pk}/',
     response_model=Tag
 )
+@inject
 async def get_tag(
-    pk: int = Field(..., title="Tag id(pk)", gt=0)
+    pk: int = Field(..., title="Tag id(pk)", gt=0),
+    tag_service: TagService = Depends(Provide[AppContainer.tag_service])
 ):
     return await tag_service.read(pk)
 
 
 @tags_router.post(
     '/',
-    response_model=Tag
+    response_model=Tag,
 )
+@inject
 async def create_tag(
-    cmd: CreateTag
+    cmd: CreateTag,
+    tag_service: TagService = Depends(Provide[AppContainer.tag_service])
 ):
     return await tag_service.create(cmd)
