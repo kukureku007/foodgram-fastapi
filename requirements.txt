@@ -4,3 +4,4 @@ SQLAlchemy==1.4.39
 alembic==1.8.0
 sqlalchemy-utils==0.38.2
 python-dotenv==0.20.0
+dependency-injector==4.39.1
