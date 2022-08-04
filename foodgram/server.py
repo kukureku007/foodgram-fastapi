@@ -9,3 +9,4 @@ app = FastAPI()
 app.app_container = app_container
 app.include_router(routers.tags_router)
 app.include_router(routers.ingredient_router)
+app.include_router(routers.additional_router)
